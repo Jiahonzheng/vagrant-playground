@@ -11,6 +11,9 @@ Vagrant.configure("2") do |config|
         v.name = "node-#{i}"
         v.memory = 1024
         v.cpus = 1
+
+        # Prevent IP collisions with Calico IP Pool.
+        v.customize ['modifyvm', :id, '--natnet1', '10.255.0.0/24']
       end
     end
   end
