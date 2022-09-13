@@ -6,8 +6,10 @@ cd "$(dirname $(realpath $0))"/..
 source util/common.sh
 
 NAME=redis
-DATA_DIR=${HOME}/data/${NAME}
+NAMESPACE="${NAMESPACE:-default}"
+DATA_DIR=${HOME}/data/${NAMESPACE}/${NAME}
 REDIS_VERSION=6.2.6
+NETWORK="${NETWORK:-bridge}"
 
 function install() {
   check_env PASSWORD
@@ -16,8 +18,10 @@ function install() {
 
   sudo nerdctl \
     run \
+    --namespace ${NAMESPACE} \
     -d \
     --name ${NAME} \
+    --network ${NETWORK} \
     -p 6379:6379 \
     -v ${DATA_DIR}/data:/data \
     redis:${REDIS_VERSION} \
