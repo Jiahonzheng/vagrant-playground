@@ -5,7 +5,7 @@ set -e
 cd "$(dirname $(realpath $0))"/..
 source util/common.sh
 
-NERDCTL_VERSION=0.22.2
+NERDCTL_VERSION=0.23.0
 
 if [[ "${USE_MIRROR}" == "1" ]]; then
   DOWNLOAD_DOMAIN=download.fastgit.org
