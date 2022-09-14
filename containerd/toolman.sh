@@ -18,6 +18,7 @@ function install() {
     wget https://${DOWNLOAD_DOMAIN}/containerd/nerdctl/releases/download/v${NERDCTL_VERSION}/nerdctl-full-${NERDCTL_VERSION}-linux-amd64.tar.gz
   fi
   sudo tar Cxzvvf /usr/local nerdctl-full-${NERDCTL_VERSION}-linux-amd64.tar.gz
+  sudo cp /usr/local/lib/systemd/system/*.service /etc/systemd/system/
   sudo systemctl enable --now containerd
 }
 
