@@ -24,7 +24,6 @@ function install() {
     run \
     -d \
     --name ${NAME} \
-    --restart=always \
     -p 2380:2380 \
     -p 2379:2379 \
     -v ${DATA_DIR}/data:/etcd-data \
