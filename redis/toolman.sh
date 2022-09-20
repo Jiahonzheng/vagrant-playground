@@ -8,23 +8,22 @@ source util/common.sh
 NAME=redis
 NAMESPACE="${NAMESPACE:-default}"
 DATA_DIR=${HOME}/data/${NAMESPACE}/${NAME}
-REDIS_VERSION=6.2.6
-NETWORK="${NETWORK:-bridge}"
+REDIS_VERSION=6.2.6-alpine
+NETWORK="${NETWORK:-podman}"
 
 function install() {
   check_env PASSWORD
 
   mkdir -p ${DATA_DIR}/data
 
-  sudo nerdctl \
+  podman \
     run \
-    --namespace ${NAMESPACE} \
     -d \
-    --name ${NAME} \
+    --name ${NAMESPACE}.${NAME} \
     --network ${NETWORK} \
     -p 6379:6379 \
     -v ${DATA_DIR}/data:/data \
-    redis:${REDIS_VERSION} \
+    docker.io/redis:${REDIS_VERSION} \
     redis-server \
     --appendonly yes \
     --requirepass ${PASSWORD}
