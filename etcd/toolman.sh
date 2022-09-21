@@ -9,7 +9,7 @@ NAME=etcd
 NAMESPACE="${NAMESPACE:-default}"
 DATA_DIR=${HOME}/data/${NAMESPACE}/${NAME}
 ETCD_VERSION=3.5.4
-NETWORK="${NETWORK:-bridge}"
+NETWORK="${NETWORK:-podman}"
 
 function install() {
   check_env NODE
@@ -20,10 +20,10 @@ function install() {
 
   mkdir -p ${DATA_DIR}/data
 
-  sudo nerdctl \
+  podman \
     run \
     -d \
-    --name ${NAME} \
+    --name ${NAMESPACE}.${NAME} \
     -p 2380:2380 \
     -p 2379:2379 \
     -v ${DATA_DIR}/data:/etcd-data \
